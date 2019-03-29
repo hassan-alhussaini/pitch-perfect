@@ -21,7 +21,7 @@ class PlaySoundsViewController: UIViewController {
     
     
     var recordAudioURL: URL!
-    var audioFile: AVAudioNode!
+    var audioFile: AVAudioFile!
     var audioEngine: AVAudioEngine!
     var audioPlayerNode: AVAudioPlayerNode!
     var stopTimer: Timer!
