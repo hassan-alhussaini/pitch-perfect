@@ -17,7 +17,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     @IBOutlet weak var stopRecordingButton: UIButton!
    
     @IBAction func recordAudio(_ sender: AnyObject) {
-        configureUI(isRecording: false)
+        configureUI(isRecording: true)
         let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask, true)[0] as String
         let recordingName = "recordVoice.wav"
         let pathArray = [dirPath, recordingName]
@@ -33,11 +33,17 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         audioRecorder.record()
     }
     
+    
     @IBAction func stopRecording(_ sender: Any) {
         configureUI(isRecording: true)
         audioRecorder.stop()
         let audioSession = AVAudioSession.sharedInstance()
         try! audioSession.setActive(false)
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureUI(isRecording: false)
     }
     
     func configureUI(isRecording: Bool) {
@@ -45,6 +51,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         stopRecordingButton.isEnabled = isRecording
         recordButton.isEnabled = !isRecording
     }
+    
     
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         if flag{
@@ -54,6 +61,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
             print("recording was not successful")
         }
     }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "stopRecording" {
